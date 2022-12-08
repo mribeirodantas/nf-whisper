@@ -1,4 +1,5 @@
 params.help = false
+params.timestamp = false
 params.youtube_url = ''
 params.model = 'tiny'
 
@@ -16,7 +17,6 @@ process DOWNLOAD_AUDIO {
     #!/usr/bin/env python3
 
     import pytube # download youtube videos
-    import sys
 
     data = pytube.YouTube("$youtube_url")
     # Convert to audio file
@@ -39,14 +39,34 @@ process WHISPER {
     """
     #!/usr/bin/env python3
     import whisper
-    import sys
 
     model = whisper.load_model("$model")
     result = model.transcribe("$audio_file")
-    # result = model.transcribe(video_filename, task='translate')
-
     text_file = open(r'transcript.txt', 'w')
     text_file.write(result['text'])
+    """
+}
+
+process WHISPER_W_TIMESTAMP {
+  container 'whisper'
+
+  input:
+    path audio_file
+    val model
+
+  output:
+    path 'transcript.txt'
+
+  script:
+    """
+    #!/usr/bin/env python3
+    import whisper
+
+    model = whisper.load_model("$model")
+    result = model.transcribe("$audio_file")
+    with open('transcript.txt', 'a') as f:
+      for segment in result['segments']:
+        f.write(str(segment['start']) + segment['text'] + '\\n')
     """
 }
 
@@ -77,7 +97,12 @@ workflow {
     """)
   } else {
     DOWNLOAD_AUDIO(params.youtube_url)
-    WHISPER(DOWNLOAD_AUDIO.out, params.model)
-    PRINT(WHISPER.out).view()
+    if (params.timestamp) {
+      WHISPER_W_TIMESTAMP(DOWNLOAD_AUDIO.out, params.model)
+      PRINT(WHISPER_W_TIMESTAMP.out).view()
+    } else {
+      WHISPER(DOWNLOAD_AUDIO.out, params.model)
+      PRINT(WHISPER.out).view()
+    }
   }
 }
