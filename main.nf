@@ -1,4 +1,4 @@
-// default YouTube URL to test
+params.help = false
 params.youtube_url = ''
 params.model = 'tiny'
 
@@ -62,7 +62,22 @@ process PRINT {
 }
 
 workflow {
-  DOWNLOAD_AUDIO(params.youtube_url)
-  WHISPER(DOWNLOAD_AUDIO.out, params.model)
-  PRINT(WHISPER.out).view()
+  if (params.help) {
+    print """
+      Usage: nextflow run main.nf [options]
+      Options:
+        --help               Print this help message
+        --youtube_url URL    Extract audio from this URL to perform transcription. This option is mandatory
+        --model       model  Set Whisper model. Options are: tiny, base, small, medium, large
+    """
+  } else if (params.youtube_url == '') {
+    throw new Exception("""
+    You failed to provide a valid YouTube URL with --youtube_url
+    For help, run: nextflow run main.nf --help
+    """)
+  } else {
+    DOWNLOAD_AUDIO(params.youtube_url)
+    WHISPER(DOWNLOAD_AUDIO.out, params.model)
+    PRINT(WHISPER.out).view()
+  }
 }
