@@ -87,11 +87,13 @@ workflow {
       Usage: nextflow run main.nf [options]
       Options:
         --help               Print this help message
-        --youtube_url URL    Extract audio from this URL to perform transcription. This option is mandatory
         --model       model  Set Whisper model. Options are: tiny, base, small, medium, large
+        --timestamp          Print timestamps with each speech segment
+        --youtube_url URL    Extract audio from this URL to perform transcription. This option is mandatory
     """
   } else if (params.youtube_url == '') {
     throw new Exception("""
+    Mandatory parameter missing!
     You failed to provide a valid YouTube URL with --youtube_url
     For help, run: nextflow run main.nf --help
     """)
