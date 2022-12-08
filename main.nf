@@ -1,3 +1,4 @@
+params.file = ''
 params.help = false
 params.timestamp = false
 params.youtube_url = ''
@@ -33,7 +34,7 @@ process WHISPER {
     val model
 
   output:
-    path 'transcript.txt'
+    path 'transcription.txt'
 
   script:
     """
@@ -42,7 +43,7 @@ process WHISPER {
 
     model = whisper.load_model("$model")
     result = model.transcribe("$audio_file")
-    text_file = open(r'transcript.txt', 'w')
+    text_file = open(r'transcription.txt', 'w')
     text_file.write(result['text'])
     """
 }
@@ -55,7 +56,7 @@ process WHISPER_W_TIMESTAMP {
     val model
 
   output:
-    path 'transcript.txt'
+    path 'transcription.txt'
 
   script:
     """
@@ -64,7 +65,7 @@ process WHISPER_W_TIMESTAMP {
 
     model = whisper.load_model("$model")
     result = model.transcribe("$audio_file")
-    with open('transcript.txt', 'a') as f:
+    with open('transcription.txt', 'a') as f:
       for segment in result['segments']:
         f.write(str(segment['start']) + segment['text'] + '\\n')
     """
@@ -72,38 +73,55 @@ process WHISPER_W_TIMESTAMP {
 
 process PRINT {
   input:
-    path transcript
+    path transcription
   output:
     stdout
   script:
     """
-    cat $transcript
+    cat $transcription
     """
 }
 
 workflow {
+  // Checks for proper parameter handling
   if (params.help) {
     print """
       Usage: nextflow run main.nf [options]
       Options:
+        --file        file   Generate transcription from this audio file
         --help               Print this help message
-        --model       model  Set Whisper model. Options are: tiny, base, small, medium, large
+        --model       model  Set Whisper pre-trained model. Options are: tiny, base, small, medium, large. Default: tiny
         --timestamp          Print timestamps with each speech segment
-        --youtube_url URL    Extract audio from this URL to perform transcription. This option is mandatory
+        --youtube_url URL    Extract audio from this YouTube URL to generate transcription
     """
-  } else if (params.youtube_url == '') {
+  } else if (params.youtube_url == '' && params.file == '') {
     throw new Exception("""
     Mandatory parameter missing!
     You failed to provide a valid YouTube URL with --youtube_url
+    or an audio file with --file
     For help, run: nextflow run main.nf --help
     """)
+  } else if (params.youtube_url != '' && params.file != '') {
+    throw new Exception("""
+    You can not provide --file and --youtube_url at the same time.
+    Choose only one of these options each time.
+    For help, run: nextflow run main.nf --help
+    """)
+  // Checking conditions on how to behave
   } else {
+    // If it's a YouTube URL, you must download the video and extract audio
+    if (params.youtube_url != '') {
     DOWNLOAD_AUDIO(params.youtube_url)
+    audio_file = DOWNLOAD_AUDIO.out
+    } else {
+      audio_file = params.file
+    }
+
     if (params.timestamp) {
-      WHISPER_W_TIMESTAMP(DOWNLOAD_AUDIO.out, params.model)
+      WHISPER_W_TIMESTAMP(audio_file, params.model)
       PRINT(WHISPER_W_TIMESTAMP.out).view()
     } else {
-      WHISPER(DOWNLOAD_AUDIO.out, params.model)
+      WHISPER(audio_file, params.model)
       PRINT(WHISPER.out).view()
     }
   }
