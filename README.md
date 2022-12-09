@@ -1,23 +1,29 @@
 # nf-whisper
-Nextflow pipeline to interact with OpenAI Whisper.
+Nextflow pipeline to make use of OpenAI Whisper pre-trained models and generate transcriptions/translations of audio content.
 
-1. Start by building the image from the provided Dockerfile. From the root directory of this repository, type:
+0. If you don't have Nextflow installed in your machine, this is the first step. Get up to date info on installation clicking [here](https://www.nextflow.io).
+
+1. Start by building the image from the provided Dockerfile (You need Docker installed for that, of course :). From the root directory of this repository, type:
 ```
 docker build . -t whisper
 ```
 
-Remember to update `nextflow.config` with the appropriate container image name, in case you chose something other than `whisper`.
+Remember to update `nextflow.config` with the appropriate container image name, in case you chose something other than `whisper` in the command line above.
 
-2. Then run the command line below to get the transcript with timestamp of a short conversation in English:
+2. Then run the command line below to get the transcription with timestamp of a short conversation in English in a YouTube video:
 ```
 nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en --timestamp -resume
+```
+
+You can also get the transcriptions from audio files already downloaded with the `--file` parameter:
+```
+nextflow run main.nf --file audio_sample.wav --model small.en --timestamp -resume
 ```
 
 For more information, check the help page with:
 ```
 nextflow run main.nf --help
 ```
-
 
 # Available pre-trained models and languages
 
