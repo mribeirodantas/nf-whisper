@@ -4,72 +4,8 @@ params.timestamp = false
 params.youtube_url = ''
 params.model = 'tiny'
 
-process DOWNLOAD_AUDIO {
-  container 'whisper'
-
-  input:
-    val youtube_url
-
-  output:
-    path "audio.mp4"
-
-  script:
-    """
-    #!/usr/bin/env python3
-
-    import pytube # download youtube videos
-
-    data = pytube.YouTube("$youtube_url")
-    # Convert to audio file
-    audio = data.streams.get_audio_only()
-    audio.download(filename="audio.mp4")
-    """
-}
-
-process WHISPER {
-  container 'whisper'
-
-  input:
-    path audio_file
-    val model
-
-  output:
-    path 'transcription.txt'
-
-  script:
-    """
-    #!/usr/bin/env python3
-    import whisper
-
-    model = whisper.load_model("$model")
-    result = model.transcribe("$audio_file")
-    text_file = open(r'transcription.txt', 'w')
-    text_file.write(result['text'])
-    """
-}
-
-process WHISPER_W_TIMESTAMP {
-  container 'whisper'
-
-  input:
-    path audio_file
-    val model
-
-  output:
-    path 'transcription.txt'
-
-  script:
-    """
-    #!/usr/bin/env python3
-    import whisper
-
-    model = whisper.load_model("$model")
-    result = model.transcribe("$audio_file")
-    with open('transcription.txt', 'a') as f:
-      for segment in result['segments']:
-        f.write(str(segment['start']) + segment['text'] + '\\n')
-    """
-}
+include { DOWNLOAD_AUDIO } from './modules/pytube'
+include { WHISPER; WHISPER_W_TIMESTAMP } from './modules/whisper'
 
 process PRINT {
   input:
