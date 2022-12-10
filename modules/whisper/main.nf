@@ -1,5 +1,5 @@
 process WHISPER {
-
+  container 'whisper'
   input:
     path audio_file
     val model
