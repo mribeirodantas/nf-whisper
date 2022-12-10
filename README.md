@@ -10,6 +10,11 @@ docker build . -t whisper
 
 Remember to update `nextflow.config` with the appropriate container image name, in case you chose something other than `whisper` in the command line above.
 
+You can also use Wave (through the nf-wave plugin already bundled with Nextflow) to remotely build on-the-fly the container image for you. For that, just run with `-with-wave`:
+```
+nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en --timestamp -resume -with-wave
+```
+
 2. Then run the command line below to get the transcription with timestamp of a short conversation in English in a YouTube video:
 ```
 nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en --timestamp -resume
