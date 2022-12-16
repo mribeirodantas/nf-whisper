@@ -7,7 +7,7 @@ github:
     # enable for the master/default branch (defaults to true)
     master: true
     # enable for all branches in this repo (defaults to false)
-    branches: false
+    branches: true
     # enable for pull requests coming from this repo (defaults to true)
     pullRequests: true
     # enable for pull requests coming from forks (defaults to false)
@@ -15,7 +15,9 @@ github:
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to true)
     addComment: true
     # add a "Review in Gitpod" button to pull requests (defaults to false)
-    addBadge: false
+    addBadge: true
+    # add a label once the prebuild is ready to pull requests (defaults to false)
+    addLabel: prebuilt-in-gitpod
 
 image: chriswyatt/seqeratraining_22.09.7
 
@@ -25,7 +27,6 @@ tasks:
 vscode:
   extensions: # based on nf-core.nf-core-extensionpack
     - codezombiech.gitignore # Language support for .gitignore files
-    - cssho.vscode-svgviewer               # SVG viewer
     - esbenp.prettier-vscode # Markdown/CommonMark linting and style checking for Visual Studio Code
     - EditorConfig.EditorConfig # override user/workspace settings with settings found in .editorconfig files
     - Gruntfuggly.todo-tree # Display TODO and FIXME in a tree view in the activity bar
