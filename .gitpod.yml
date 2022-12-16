@@ -21,4 +21,4 @@ tasks:
   - before: curl -s https://get.nextflow.io | bash && mv nextflow /home/gitpod/.rvm/bin/ && exit
 
   - name: Open shell
-    command: bash && clear
+    command: clear && bash
