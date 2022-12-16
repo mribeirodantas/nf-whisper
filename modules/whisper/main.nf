@@ -1,5 +1,4 @@
 process WHISPER {
-  container 'whisper'
   input:
     path audio_file
     val model
@@ -20,7 +19,6 @@ process WHISPER {
 }
 
 process WHISPER_W_TIMESTAMP {
-
   input:
     path audio_file
     val model

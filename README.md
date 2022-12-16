@@ -1,28 +1,33 @@
 # nf-whisper
-Nextflow pipeline to make use of OpenAI Whisper pre-trained models and generate transcriptions/translations of audio content.
+`nf-whisper` is a Nextflow pipeline to make use of the OpenAI Whisper pre-trained models and generate transcriptions/translations of audio content. This pipeline does a bit more, such as downloading YouTube videos and extracing the audio part for Whisper.
 
-0. If you don't have Nextflow installed in your machine, this is the first step. Get up to date info on installation clicking [here](https://www.nextflow.io).
+## Basic instructions
+0. If you don't have Nextflow installed in your machine, this is the first step. Get up to date info on installation clicking [here](https://www.nextflow.io). If you already have Whisper and everything required in your machine (unlikely), you can just run the pipeline straight way. This is not recommended though, so we should use something like a container technology, which is what we're going to do next.
 
 1. Start by building the image from the provided Dockerfile (You need Docker installed for that, of course :). From the root directory of this repository, type:
 ```
 docker build . -t whisper
 ```
 
-Remember to update `nextflow.config` with the appropriate container image name, in case you chose something other than `whisper` in the command line above.
-
-You can also use Wave (through the nf-wave plugin already bundled with Nextflow) to remotely build on-the-fly the container image for you. For that, just run with `-with-wave`:
+2. Then, you can run the pipeline using this Docker container image with the command line below. This YouTube URL contains a short conversation in English, so it shouldn't take more than a couple minutes to run.
 ```
-nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en --timestamp -resume -with-wave
+nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en -with-docker whisper
 ```
 
-2. Then run the command line below to get the transcription with timestamp of a short conversation in English in a YouTube video:
+✨ You can also use [Wave](https://seqera.io/wave/) (through the `nf-wave` plugin already bundled with Nextflow) to remotely build on-the-fly the container image for you. For that, you don't need to use `docker build`. Just run with `-with-wave` instead:
 ```
-nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en --timestamp -resume
+nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en -resume -with-wave
+```
+
+## Let's play!
+Now that it's working, you can do something more fancy. Run the command line below to get the transcription with timestamps! You can use either Wave or a docker image if you've built one. The example below uses a docker image built locally named `whisper`:
+```
+nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en --timestamp -resume -with-docker whisper
 ```
 
 You can also get the transcriptions from audio files already downloaded with the `--file` parameter:
 ```
-nextflow run main.nf --file audio_sample.wav --model small.en --timestamp -resume
+nextflow run main.nf --file audio_sample.wav --model small.en --timestamp -resume -with-docker whisper
 ```
 
 For more information, check the help page with:

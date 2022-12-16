@@ -1,5 +1,4 @@
 process DOWNLOAD_AUDIO {
-  container 'whisper'
   input:
     val youtube_url
 
