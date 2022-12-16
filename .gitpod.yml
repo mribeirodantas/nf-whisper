@@ -18,4 +18,4 @@ github:
     addLabel: prebuilt-in-gitpod
 
 tasks:
-  - before: curl -s https://get.nextflow.io | bash
+  - before: curl -s https://get.nextflow.io | bash && mv nextflow /home/gitpod/.rvm/bin/ && exit
