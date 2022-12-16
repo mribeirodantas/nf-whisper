@@ -1,4 +1,4 @@
-# nf-whisper
+# nf-whisper   <a href="https://gitpod.io/#https://github.com/mribeirodantas/nf-whisper"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod" alt="Gitpod ready-to-code" /></a>
 `nf-whisper` is a Nextflow pipeline to make use of the OpenAI Whisper pre-trained models and generate transcriptions/translations of audio content. This pipeline does a bit more, such as downloading YouTube videos and extracing the audio part for Whisper.
 
 ## Basic instructions
