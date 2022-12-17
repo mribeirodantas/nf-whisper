@@ -20,5 +20,16 @@ github:
 tasks:
   - before: curl -s https://get.nextflow.io | bash && mv nextflow /home/gitpod/.rvm/bin/ && exit
 
+  - name: Open README.md preview
+    command: code README.md
   - name: Open shell
     command: clear && bash
+
+vscode:
+  extensions: # based on nf-core.nf-core-extensionpack
+    - codezombiech.gitignore # Language support for .gitignore files
+    - esbenp.prettier-vscode # Markdown/CommonMark linting and style checking for Visual Studio Code
+    - nextflow.nextflow                    # Nextflow syntax highlighting
+    - streetsidesoftware.code-spell-checker # Spelling checker for source code
+    - ms-vscode.live-server
+    - matt-rudge.auto-open-preview-panel
