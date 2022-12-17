@@ -1,4 +1,21 @@
-# nf-whisper <a href="https://gitpod.io/#https://github.com/mribeirodantas/nf-whisper"><img src="https://img.shields.io/badge/Gitpod-%20Run%20nf_whisper%20on%20Gitpod-908a85?logo=gitpod" alt="Run nf-whisper on Gitpod!" /></a>
+<p align="center">
+  <a href="https://www.github.com/mribeirodantas/nf-whisper">
+    <strong>nf-whisper</strong>
+  </a>
+  <br />
+  <span>Automatic Speech Recognition (ASR) Nextflow pipeline using OpenAI Whisper</span>
+</p>
+<p align="center">
+  <a href="https://gitpod.io/#https://github.com/mribeirodantas/nf-whisper">
+    <img src="https://img.shields.io/badge/Gitpod-%20Run%20nf_whisper%20on%20Gitpod-908a85?logo=gitpod" alt="Run nf-whisper on Gitpod!" />
+  </a>
+  <br />
+  <a href="https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=575876376">
+    <img src="https://github.com/codespaces/badge.svg" alt="Open on GitHub Codespaces" />
+  </a>
+</p>
+
+# Introduction
 `nf-whisper` is a Nextflow pipeline to make use of the OpenAI Whisper pre-trained models and generate transcriptions/translations of audio content. This pipeline does a bit more, such as downloading YouTube videos and extracing the audio part for Whisper.
 
 ## Basic instructions
