@@ -33,3 +33,4 @@ vscode:
     - streetsidesoftware.code-spell-checker # Spelling checker for source code
     - ms-vscode.live-server
     - matt-rudge.auto-open-preview-panel
+    - ms-azuretools.vscode-docker
