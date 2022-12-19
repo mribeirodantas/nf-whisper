@@ -3,6 +3,7 @@ params.help = false
 params.timestamp = false
 params.youtube_url = ''
 params.model = 'tiny'
+params.outdir = "."
 
 include { DOWNLOAD_AUDIO } from './modules/pytube'
 include { WHISPER; WHISPER_W_TIMESTAMP } from './modules/whisper'
@@ -20,13 +21,16 @@ process PRINT {
 
 workflow {
   // Checks for proper parameter handling
-  if (params.help) {
+  if (!(new File(params.outdir)).exists()) {
+    throw new Exception("The outdir folder must exist")
+  } else if (params.help) {
     print """
       Usage: nextflow run main.nf [options]
       Options:
         --file        file   Generate transcription from this audio file
         --help               Print this help message
         --model       model  Set Whisper pre-trained model. Options are: tiny, base, small, medium, large. Default: tiny
+        --outdir      path   Path to store transcriptions
         --timestamp          Print timestamps with each speech segment
         --youtube_url URL    Extract audio from this YouTube URL to generate transcription
     """
