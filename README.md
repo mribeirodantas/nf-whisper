@@ -31,6 +31,11 @@ docker build . -t whisper
 nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en -with-docker whisper
 ```
 
+3. By default, the `whisper` python package will try to download the selected OpenAI Whisper pre-trained model from the internet. Whenever it does that, the downloaded pre-trained model will be placed within the `$PWD/cache/whisper/` directory. This may be within a Docker container, depending on how you run this pipeline it. You may prefer (if your environment can not access internet, for example) to provide the file instead. If you have it stored in the `pre_trained_models` folder of the pipeline folder, your command line should look something like this:
+```
+nextflow run main.nf --file $PWD/audio_file.mp3 -with-docker whisper --model $PWD/pre_trained_models/tiny.pt
+```
+
 ✨ You can also use [Wave](https://seqera.io/wave/) (through the `nf-wave` plugin already bundled with Nextflow) to remotely build on-the-fly the container image for you. For that, you don't need to use `docker build`. Just run with `-with-wave` instead:
 ```
 nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en -resume -with-wave
