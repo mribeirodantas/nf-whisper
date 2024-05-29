@@ -51,7 +51,10 @@ workflow {
   } else {
     // If it's a YouTube URL, you must download the video and extract audio
     if (params.youtube_url != '') {
-    DOWNLOAD_AUDIO(params.youtube_url)
+    Channel
+      .of(params.youtube_url.split(','))
+      .set { youtube_urls_ch }
+    DOWNLOAD_AUDIO(youtube_urls_ch)
     audio_file = DOWNLOAD_AUDIO.out
     } else {
       audio_file = params.file
