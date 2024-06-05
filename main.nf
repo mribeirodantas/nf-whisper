@@ -26,7 +26,9 @@ workflow {
   def folder = new File(params.outdir)
   if (!(folder.exists())) {
     folder.mkdirs()
-  } else if (params.help) {
+  }
+
+  if (params.help) {
     print """
       Usage: nextflow run main.nf [options]
       Options:
