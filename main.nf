@@ -21,8 +21,9 @@ process PRINT {
 
 workflow {
   // Checks for proper parameter handling
-  if (!(new File(params.outdir)).exists()) {
-    throw new Exception("The outdir folder must exist")
+  def folder = new File(params.outdir)
+  if (!(folder.exists())) {
+    folder.mkdirs()
   } else if (params.help) {
     print """
       Usage: nextflow run main.nf [options]
