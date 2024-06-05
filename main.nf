@@ -1,3 +1,5 @@
+#!/usr/bin/env nextflow
+
 params.file = ''
 params.help = false
 params.timestamp = false
