@@ -48,7 +48,7 @@ This pipeline streamlines the process of converting speech to text, making it ea
 
 2. Run the pipeline by providing a YouTube URL using the `--youtube_url` parameter:
    ```
-   nextflow run main.nf --youtube_url https://www.youtube.com/watch?v=UVzLd304keA --model small.en -with-docker whisper
+   nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model small.en -with-docker whisper
    ```
 
 3. For local audio files use the `--file` parameter:
@@ -67,12 +67,12 @@ nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA
 ```
 2. Use different models using the `--model` parameter:
 ```
-nextflow run main.nf --youtube_url https://www.youtube.com/watch?v=UVzLd304keA --model tiny -with-docker whisper
+nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model tiny -with-docker whisper
 
 ```
 3. Provide a local model file using the `--model` parameter:
 ```
-nextflow run main.nf --youtube_url https://www.youtube.com/watch?v=UVzLd304keA --model /path/to/model.pt -with-docker whisper
+nextflow run main.nf --youtube_url https://www.youtube.com/watch\?v\=UVzLd304keA --model /path/to/model.pt -with-docker whisper
 ```
 
 4. Check out help with:
