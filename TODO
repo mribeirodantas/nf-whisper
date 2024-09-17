@@ -1,0 +1,4 @@
+1. Make sure devs are aware that the search box in Data Explorer only searches in the current directory
+2. Make the Reports tab work on Seqera (tower.yml)
+3. Make publishDir work
+4. Make try again with more resources (12 GB for MEMORY)

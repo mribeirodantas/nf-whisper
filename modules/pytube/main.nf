@@ -9,9 +9,9 @@ process DOWNLOAD_AUDIO {
     """
     #!/usr/bin/env python3
 
-    import pytube # download youtube videos
+    import pytubefix # download youtube videos
 
-    data = pytube.YouTube("$youtube_url")
+    data = pytubefix.YouTube("$youtube_url")
     # Convert to audio file
     audio = data.streams.get_audio_only()
     audio.download(filename="audio.mp4")
