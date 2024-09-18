@@ -1,0 +1,3 @@
+reports:
+  transcription.txt:
+    display: "Transcription Text File"

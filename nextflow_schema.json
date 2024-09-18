@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://github.com/mribeirodantas/nf-whisper/blob/main/nextflow_schema.json",
+    "title": "nf-whisper pipeline parameters",
+    "description": "Schema for the nf-whisper Nextflow pipeline parameters",
+    "type": "object",
+    "definitions": {
+      "input_output_options": {
+        "title": "Input/Output Options",
+        "type": "object",
+        "properties": {
+        "model": {
+            "type": "string",
+            "description": "Select Whisper pre-trained model",
+            "help_text": "The .en models are the English-only versions of the respective models.",
+            "default": "tiny",
+            "enum": ["tiny", "base", "small", "medium", "large", "tiny.en", "base.en", "small.en", "medium.en"]
+          },
+          "youtube_url": {
+            "type": "string",            
+            "description": "YouTube URL",
+            "format": "file-path",
+            "fa_icon": "fas fa-cloud-download-alt",
+            "help_text": "Provide a YouTube URL to download the audio and generate transcription",
+            "default": "https://www.youtube.com/watch?v=UVzLd304keA"
+          },
+          "file": {
+            "type": "string",
+            "description": "Generate transcription from this audio file",
+            "format": "file-path",
+            "fa_icon": "fas fa-file-audio",
+            "help_text": "Provide the path to a audio file to generate transcription"
+          },
+          "outdir": {
+            "type": "string",
+            "description": "Path to store transcriptions",
+            "default": "."
+          }
+        }
+      },
+      "processing_options": {
+        "title": "Processing Options",
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "boolean",
+            "description": "Print timestamps with each speech segment",
+            "default": false
+          }
+        }
+      }
+    },
+    "allOf": [
+      {
+        "$ref": "#/definitions/input_output_options"
+      },
+      {
+        "$ref": "#/definitions/processing_options"
+      }
+    ]
+  }
