@@ -6,6 +6,7 @@
   <span>Automatic Speech Recognition (ASR) Nextflow pipeline using OpenAI Whisper</span>
 </p>
 <p align="center">
+  
   <a href="https://gitpod.io/#https://github.com/mribeirodantas/nf-whisper">
     <img src="https://img.shields.io/badge/Gitpod-%20Run%20nf_whisper%20on%20Gitpod-908a85?logo=gitpod" alt="Run nf-whisper on Gitpod!" />
   </a>
@@ -16,6 +17,10 @@
 </p>
 
 # Introduction
+<!-- [![Nextflow](https://img.shields.io/badge/Nextflow%20DSL2-%E2%89%A523.04-0DC09D.svg?labelColor=000000&logo=data:image/svg%2bxml;base64,PHN2ZyB3aWR0aD0iMjUxIiBoZWlnaHQ9IjI1MiIgdmlld0JveD0iMCAwIDI1MSAyNTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQo8cGF0aCBkPSJNMCA0Ny42MzQ1QzM5LjQ1IDUwLjI1NDMgNzEuMDYgODEuOTQyMiA3My41NCAxMjEuNDNIMTE5LjYxQzExNy4wNSA1Ni40NzM5IDY0LjkzIDQuMjU3NDQgMCAxLjU1NzYyVjQ3LjYzNDVaIiBmaWxsPSJ3aGl0ZSIvPg0KPHBhdGggZD0iTTczLjggMTMxLjkzOUM3MS4xOCAxNzEuMzg2IDM5LjQ5IDIwMi45OTQgMCAyMDUuNDc0VjI1MS41NDFDNjQuOTYgMjQ4Ljk4MSAxMTcuMTggMTk2Ljg2NSAxMTkuODggMTMxLjkzOUg3My44WiIgZmlsbD0id2hpdGUiLz4NCjxwYXRoIGQ9Ik0xNzYuMjAxIDEyMS4xNkMxNzguODIxIDgxLjcxMjIgMjEwLjUxMSA1MC4xMDQzIDI1MC4wMDEgNDcuNjI0NVYxLjU1NzYyQzE4NS4wNDEgNC4xMTc0NCAxMzIuODIxIDU2LjIzMzkgMTMwLjEyMSAxMjEuMTZIMTc2LjIwMVoiIGZpbGw9IndoaXRlIi8+DQo8cGF0aCBkPSJNMjUwLjAwMSAyMDUuNDY0QzIxMC41NTEgMjAyLjg0NSAxNzguOTQxIDE3MS4xNTcgMTc2LjQ2MSAxMzEuNjY5SDEzMC4zOTFDMTMyLjk1MSAxOTYuNjI1IDE4NS4wNzEgMjQ4Ljg0MiAyNTAuMDAxIDI1MS41NDFWMjA1LjQ2NFoiIGZpbGw9IndoaXRlIi8+DQo8L3N2Zz4=)](https://www.nextflow.io/) -->
+[![Nextflow](https://img.shields.io/badge/Nextflow%20DSL2-%E2%89%A523.04-0DC09D.svg?labelColor=000000&logo=data:image/svg%2bxml;base64,PHN2ZyB3aWR0aD0iMjUxIiBoZWlnaHQ9IjI1MiIgdmlld0JveD0iMCAwIDI1MSAyNTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQo8cGF0aCBkPSJNMCA0Ny42MzQ1QzM5LjQ1IDUwLjI1NDMgNzEuMDYgODEuOTQyMiA3My41NCAxMjEuNDNIMTE5LjYxQzExNy4wNSA1Ni40NzM5IDY0LjkzIDQuMjU3NDQgMCAxLjU1NzYyVjQ3LjYzNDVaIiBmaWxsPSIjMjJBRTYzIi8+DQo8cGF0aCBkPSJNNzMuOCAxMzEuOTM5QzcxLjE4IDE3MS4zODYgMzkuNDkgMjAyLjk5NCAwIDIwNS40NzRWMjUxLjU0MUM2NC45NiAyNDguOTgxIDExNy4xOCAxOTYuODY1IDExOS44OCAxMzEuOTM5SDczLjhaIiBmaWxsPSIjMjJBRTYzIi8+DQo8cGF0aCBkPSJNMTc2LjIwMSAxMjEuMTZDMTc4LjgyMSA4MS43MTIyIDIxMC41MTEgNTAuMTA0MyAyNTAuMDAxIDQ3LjYyNDVWMS41NTc2MkMxODUuMDQxIDQuMTE3NDQgMTMyLjgyMSA1Ni4yMzM5IDEzMC4xMjEgMTIxLjE2SDE3Ni4yMDFaIiBmaWxsPSIjMjJBRTYzIi8+DQo8cGF0aCBkPSJNMjUwLjAwMSAyMDUuNDY0QzIxMC41NTEgMjAyLjg0NSAxNzguOTQxIDE3MS4xNTcgMTc2LjQ2MSAxMzEuNjY5SDEzMC4zOTFDMTMyLjk1MSAxOTYuNjI1IDE4NS4wNzEgMjQ4Ljg0MiAyNTAuMDAxIDI1MS41NDFWMjA1LjQ2NFoiIGZpbGw9IiMyMkFFNjMiLz4NCjwvc3ZnPg==)](https://www.nextflow.io/)
+[![run with conda](https://img.shields.io/badge/run%20with-conda-3EB049.svg?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
+[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed.svg?labelColor=000000&logo=docker)](https://www.docker.com/)
 
 `nf-whisper` is a simple Nextflow pipeline that leverages OpenAI's Whisper pre-trained models to generate transcriptions and translations from YouTube videos and audio files. Key features include:
 
